@@ -7,7 +7,7 @@ from airflow.hooks.postgres_hook import PostgresHook
 from airflow.utils.decorators import apply_defaults
 
 
-class LoadFactTable(BaseOperator):
+class LoadFactOperator(BaseOperator):
 
     @apply_defaults
     def __init__(self,redshift_connection_id,sql_query,*args,**kwargs):

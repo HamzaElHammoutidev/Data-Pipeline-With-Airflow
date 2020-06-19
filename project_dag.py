@@ -5,7 +5,6 @@ import datetime
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators import (StageS3ToRedshiftOperator,LoadFactOperator,LoadDimensionOperator,DataQualityOperator,CreateRedshiftTables)
-from airflow.hooks
 # Create Tables
 # Staging Tables into AWS Redshift
 # Processing Data
