@@ -46,7 +46,7 @@ stage_events = StageS3ToRedshiftOperator(task_id = "events_stage",
                                          s3_bucket="myproject",
                                          s3_key="events_data",
                                          region="us-west-2",
-                                         format_data="JSON")
+                                         format_data="JSON",sla=datetime.timedelta(minutes=30))
 
 # Stage Songs
 stage_songs = StageS3ToRedshiftOperator(task_id = "songs_stage",
@@ -58,7 +58,7 @@ stage_songs = StageS3ToRedshiftOperator(task_id = "songs_stage",
                                         s3_bucket="myproject",
                                         s3_key="songs_data",
                                         region="us-west-2",
-                                        format_data="JSON")
+                                        format_data="JSON",sla=datetime.timedelta(minutes=30))
 
 
 # Loading Data into Fact Table
@@ -83,7 +83,7 @@ load_songsplays_fact_table = LoadFactOperator(task_id="load_songsplays_fact_tabl
                                                 ON events.song = songs.title
                                                     AND events.artist = songs.artist_name
                                                     AND events.length = songs.duration
-                                              """)
+                                              """,sla=datetime.timedelta(minutes=30))
 
 # Loading Dimensions Tables
 
@@ -97,7 +97,7 @@ load_user_dimension_table = LoadDimensionOperator(
         FROM staging_events
         WHERE page='NextSong'
     """,
-    truncate= True
+    truncate= True,sla=datetime.timedelta(minutes=30)
 )
 
 
@@ -110,7 +110,7 @@ load_song_dimension_table = LoadDimensionOperator(
     SELECT distinct song_id, title, artist_id, year, duration
         FROM staging_songs
    """,
-    truncate=True
+    truncate=True,sla=datetime.timedelta(minutes=30)
 )
 
 load_artist_dimension_table = LoadDimensionOperator(
@@ -122,7 +122,7 @@ load_artist_dimension_table = LoadDimensionOperator(
    SELECT distinct artist_id, artist_name, artist_location, artist_latitude, artist_longitude
         FROM staging_songs
    """,
-    truncate=True
+    truncate=True,sla=datetime.timedelta(minutes=30)
 )
 
 load_time_dimension_table = LoadDimensionOperator(
@@ -135,7 +135,7 @@ load_time_dimension_table = LoadDimensionOperator(
                extract(month from start_time), extract(year from start_time), extract(dayofweek from start_time)
         FROM songplays
    """,
-    truncate=True
+    truncate=True,sla=datetime.timedelta(minutes=30)
 )
 
 # Checking Data quality
@@ -147,7 +147,7 @@ run_quality_checks = DataQualityOperator(
     tables = ["users","songs","artists","time","songsplays"]
 )
 
-end_operator = DummyOperator(task_id="stop_execution",dag=dag)
+end_operator = DummyOperator(task_id="stop_execution",dag=dag,sla=datetime.timedelta(minutes=30))
 
 # Order of Eexcution
 
