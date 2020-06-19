@@ -3,7 +3,7 @@
 Building Automated Data Pipeline using: 
  - S3 as Data Storage 
  - Redshift as Data Warehouse 
- - Airflow as Automation Workflow 
+ - Airflow as Workflow Management Tool
  - SQL Star-Schema
  
 ## Custom Build Operators 
