@@ -9,8 +9,8 @@ Building Automated Data Pipeline using:
 ## Custom Build Operators 
  - *CreateTablesOperator* : Create Data Warehouse tables based on a script file 
  - *StageS3ToRedshiftOperator*: Load Data from S3 files into Redshift Staging Tables 
- - *LoadFactOperator* : Data Processing, Normalization and Loading into Redshift Star-Schema Fact Table
- - *LoadDimensionOperator* : Data Processing, Normalization and Loading into Redshift Star-Schema Dimensions Tables 
+ - *LoadFactOperator* : Data Processing, Normalization and Loading into Redshift Star-Schema Fact Table using SQL Only
+ - *LoadDimensionOperator* : Data Processing, Normalization and Loading into Redshift Star-Schema Dimensions Tables using SQL Only
  - *DataQualityOperator* : Data Quality Checks of Ingested data into Redshift Data Warehouse
 
 ## Data Quality Checks 
